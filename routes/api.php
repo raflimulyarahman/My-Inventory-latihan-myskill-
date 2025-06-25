@@ -19,8 +19,8 @@ use App\Http\Controllers\ProductController;
 //     return $request->user();
 // });
 
-Route::get('/', [ProductController::class, 'index']);
-
-// Route::get('/halo', function () {
-//     return response()->json('Hello World');
-// });
+Route::middleware(['api'])->prefix('product')->group(function() {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::post('/save', [ProductController::class, 'save'])->name('products.save');
+    Route::delete('/{id}/delete', [ProductController::class, 'delete'])->name('products.delete'); 
+});
